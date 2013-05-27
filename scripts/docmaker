@@ -1,0 +1,37 @@
+#!/usr/bin/env python
+"""
+    @author Christophe Eymard <christophe.eymard@ravelsoft.com>
+"""
+
+from docmaker.extracter import parse
+
+LANGUAGE_EXTENSIONS = dict(
+    python = 'py',
+    javascript = 'js',
+    coffeescript = 'cs',
+    caml = 'ml',
+    cpp = ('cpp', 'cxx', 'hh', 'c', 'h')
+)
+
+#####################################################
+
+if __name__ == "__main__":
+    from optparse import OptionParser
+    optparser = OptionParser()
+
+    options, args = optparser.parse_args()
+
+    for a in args:
+        f = open(a, "r")
+        s = f.read()
+        f.close()
+
+        filename, ext = a.rsplit('.')
+
+        for language, exts in LANGUAGE_EXTENSIONS.iteritems():
+            if ext in exts or ext == exts:
+                print "FOUND IT"
+                # res = parse(s)
+                break
+        else:
+            raise Exception("Extension {0} not found.".format(ext))
